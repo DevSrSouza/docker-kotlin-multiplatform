@@ -23,7 +23,7 @@ actual fun requestStreaming(
         Request.Builder()
             .url(url.toString())
             .apply { headers.forEach { addHeader(it.key, it.value) } }
-            .apply { method(method.name, body?.toRequestBody(mediaType))  }
+            .apply { method(method.name, body?.toRequestBody(mediaType)) }
             .build()
     )
 
@@ -31,7 +31,7 @@ actual fun requestStreaming(
         val streamingSource = call.execute().body!!.source()
 
         while (true) {
-            emit(streamingSource.readUtf8LineStrict())
+            emit(streamingSource.readUtf8Line() ?: break)
         }
     }
 }

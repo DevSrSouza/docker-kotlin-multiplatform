@@ -20,6 +20,7 @@ import br.com.devsrsouza.kotlin.docker.models.ContainerSummary
 import br.com.devsrsouza.kotlin.docker.models.ContainerTopResponse
 import br.com.devsrsouza.kotlin.docker.models.ContainerUpdateResponse
 import br.com.devsrsouza.kotlin.docker.models.ContainerWaitResponse
+import br.com.devsrsouza.kotlin.docker.utils.streaming.*
 import br.com.devsrsouza.kotlin.docker.models.ErrorResponse
 import br.com.devsrsouza.kotlin.docker.models.InlineResponse400
 import br.com.devsrsouza.kotlin.docker.models.Resources
@@ -28,8 +29,9 @@ import br.com.devsrsouza.kotlin.docker.infrastructure.*
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.http.*
 import kotlinx.serialization.json.Json
-import io.ktor.http.ParametersBuilder
+import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
@@ -488,7 +490,16 @@ class ContainerApi(
      * @return br.com.devsrsouza.kotlin.docker.infrastructure.OctetByteArray
      */
     @Suppress("UNCHECKED_CAST")
-    suspend fun containerLogs(id: kotlin.String, follow: kotlin.Boolean?, stdout: kotlin.Boolean?, stderr: kotlin.Boolean?, since: kotlin.Int?, until: kotlin.Int?, timestamps: kotlin.Boolean?, tail: kotlin.String?): HttpResponse<br.com.devsrsouza.kotlin.docker.infrastructure.OctetByteArray> {
+    suspend fun containerLogs(
+        id: kotlin.String,
+        follow: kotlin.Boolean?,
+        stdout: kotlin.Boolean?,
+        stderr: kotlin.Boolean?,
+        since: kotlin.Int?,
+        until: kotlin.Int?,
+        timestamps: kotlin.Boolean?,
+        tail: kotlin.String?
+    ): Flow<String> {
 
         val localVariableAuthNames = listOf<String>()
 
@@ -513,11 +524,13 @@ class ContainerApi(
             headers = localVariableHeaders
         )
 
-        return request(
-            localVariableConfig,
-            localVariableBody,
-            localVariableAuthNames
-        ).wrap()
+        return requestStreaming(
+            method = localVariableConfig.method,
+            url= getUrlFromConfig(localVariableConfig),
+            headers = localVariableConfig.headers,
+            contentType = ContentType.Text.Plain,
+            body = null
+        )
     }
 
 
