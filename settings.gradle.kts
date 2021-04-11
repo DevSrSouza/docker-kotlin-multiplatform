@@ -1,2 +1,2 @@
 enableFeaturePreview("GRADLE_METADATA")
-rootProject.name = "kotlin-client"
+rootProject.name = "kotlin-docker"

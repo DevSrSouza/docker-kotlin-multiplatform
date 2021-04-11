@@ -5,13 +5,13 @@ plugins {
     kotlin("plugin.serialization") version "1.4.30" // kotlin_version
 }
 
-group = "org.openapitools"
+group = "br.com.devsrsouza.kotlin.docker"
 version = "1.0.0"
 
-    val kotlin_version = "1.4.30"
-    val coroutines_version = "1.3.8"
-    val serialization_version = "1.1.0"
-    val ktor_version = "1.5.3"
+val kotlin_version = "1.4.30"
+val coroutines_version = "1.3.8"
+val serialization_version = "1.1.0"
+val ktor_version = "1.5.3"
 
 repositories {
     mavenCentral()
@@ -19,11 +19,11 @@ repositories {
 
 kotlin {
     jvm()
-    ios { binaries { framework { freeCompilerArgs += "-Xobjc-generics" } } }
-    js {
-        browser()
-        nodejs()
-    }
+//    ios { binaries { framework { freeCompilerArgs += "-Xobjc-generics" } } }
+//    js {
+//        browser()
+//        nodejs()
+//    }
 
     sourceSets {
         val commonMain by getting {
@@ -39,7 +39,6 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(kotlin("test-annotations"))
                 implementation("io.ktor:ktor-client-mock:$ktor_version")
             }
         }
@@ -47,6 +46,9 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk7"))
+                implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+                implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.0.4")
+
             }
         }
 
@@ -57,30 +59,30 @@ kotlin {
             }
         }
 
-        val iosMain by getting {
-            dependencies {
-                api("io.ktor:ktor-client-ios:$ktor_version")
-            }
-        }
-
-        val iosTest by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-mock-native:$ktor_version")
-            }
-        }
-
-        val jsMain by getting {
-            dependencies {
-                api("io.ktor:ktor-client-js:$ktor_version")
-            }
-        }
-
-        val jsTest by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-mock-js:$ktor_version")
-                implementation("io.ktor:ktor-client-js:$ktor_version")
-            }
-        }
+//        val iosMain by getting {
+//            dependencies {
+//                api("io.ktor:ktor-client-ios:$ktor_version")
+//            }
+//        }
+//
+//        val iosTest by getting {
+//            dependencies {
+//                implementation("io.ktor:ktor-client-mock-native:$ktor_version")
+//            }
+//        }
+//
+//        val jsMain by getting {
+//            dependencies {
+//                api("io.ktor:ktor-client-js:$ktor_version")
+//            }
+//        }
+//
+//        val jsTest by getting {
+//            dependencies {
+//                implementation("io.ktor:ktor-client-mock-js:$ktor_version")
+//                implementation("io.ktor:ktor-client-js:$ktor_version")
+//            }
+//        }
 
         all {
             languageSettings.apply {

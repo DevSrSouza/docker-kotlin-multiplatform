@@ -1,8 +1,10 @@
-# org.openapitools.client - Kotlin client library for Docker Engine API
+# br.com.devsrsouza.kotlin.docker - Kotlin client library for Docker Engine API 1.41
+
+Generated using [OpenAPI Generator](https://openapi-generator.tech/)
 
 ## Requires
 
-* Kotlin 1.3.50
+* Kotlin 1.4.30
 
 ## Build
 
@@ -21,8 +23,6 @@ This runs all tests and packages the library.
 
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
-
-All URIs are relative to *http://localhost/v1.41*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
