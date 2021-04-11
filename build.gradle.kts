@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform") version "1.4.30" // kotlin_version
     kotlin("plugin.serialization") version "1.4.30" // kotlin_version
+    `maven-publish`
 }
 
 group = "br.com.devsrsouza.kotlin.docker"
